@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Do you love me?</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #ffeef2; display: flex; justify-content: center; align-items: center; height: 100vh; overflow: hidden; }
+        .question-container { background: #fff5f7; width: 90%; max-width: 400px; padding: 40px 20px; border-radius: 20px; box-shadow: 0 8px 24px rgba(234,128,176,0.2); text-align: center; position: relative; min-height: 450px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        .gif-container img { width: 180px; height: auto; margin-bottom: 20px; border-radius: 10px; }
+        h2 { color: #d6336c; font-size: 1.8rem; margin-bottom: 30px; }
+        .btn-group { position: relative; width: 100%; height: 60px; }
+        button { padding: 12px 35px; font-size: 1.1rem; font-weight: bold; border: none; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.2s; }
+        #yesBtn { background-color: #4caf50; color: white; position: absolute; left: 15%; }
+        #noBtn { background-color: #f44336; color: white; position: absolute; right: 15%; z-index: 10; }
+        .heart-text { color: #d6336c; font-size: 2rem; font-weight: 900; margin-top: 20px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+<div class="question-container" id="questionContainer">
+    <!-- Schermata Principale -->
+    <div id="quiz-content" style="width: 100%;">
+        <div class="gif-container">
+            <!-- GIF Orsetto tenero in attesa -->
+            <img id="bear-gif" src="https://giphy.com" alt="Bears">
+        </div>
+        <h2>Do you love me?</h2>
+        <div class="btn-group">
+            <button id="yesBtn">Yes</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <!-- Schermata Finale -->
+    <div id="resultContainer" style="display: none; width: 100%;">
+        <div class="gif-container">
+            <!-- GIF Grande abbraccio affettuoso -->
+            <img src="https://giphy.com" alt="Hug">
+        </div>
+        <div class="heart-text">❤️ Ti amo tantissimo ❤️</div>
+    </div>
+</div>
+
+<script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const questionContainer = document.getElementById('questionContainer');
+    const quizContent = document.getElementById('quiz-content');
+    const resultContainer = document.getElementById('resultContainer');
+
+    function scappaNo() {
+        const maxX = questionContainer.clientWidth - noBtn.clientWidth - 30;
+        const maxY = questionContainer.clientHeight - noBtn.clientHeight - 60;
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+    }
+
+    noBtn.addEventListener('mouseover', scappaNo);
+    noBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        scappaNo();
+    });
+
+    yesBtn.addEventListener('click', () => {
+        quizContent.style.display = 'none';
+        resultContainer.style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
